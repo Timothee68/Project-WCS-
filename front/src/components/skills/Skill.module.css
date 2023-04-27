@@ -1,0 +1,16 @@
+.skill {
+    color:rgb(122, 131, 131);
+    text-transform: uppercase;
+    border: solid 2px  rgb(247,108,108);
+    border-radius: 5px;
+    width:auto;
+    margin-top: 10px;
+}
+
+.skill button {
+    border-radius: 50%;
+    color: white;
+    background-color: rgb(122, 131, 131);
+    border: none;
+
+}

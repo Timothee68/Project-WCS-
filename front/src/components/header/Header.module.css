@@ -1,0 +1,10 @@
+.header h1{
+    color: white;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.header div{
+    width: 100%;
+    background-color: rgb(247,108,108) ;
+}

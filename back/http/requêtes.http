@@ -1,0 +1,83 @@
+# request for Wilder
+POST http://localhost:5000/api/Wilder
+Content-Type: application/json
+
+{
+     "name": "other" 
+}
+
+###
+GET http://localhost:5000/api/Wilder/1
+Content-Type: application/json
+###
+GET http://localhost:5000/api/Wilder
+Content-Type: application/json
+###
+PUT http://localhost:5000/api/Wilder/1
+Content-Type: application/json
+
+{
+     "name": "eric" 
+}
+
+###
+DELETE http://localhost:5000/api/Wilder/8
+Content-Type: application/json
+
+
+# request for skills
+###
+POST http://localhost:5000/api/Skills
+Content-Type: application/json
+
+{
+     "name": "PHP" 
+}
+
+###
+GET http://localhost:5000/api/Skills/2
+Content-Type: application/json
+###
+GET http://localhost:5000/api/Skills
+Content-Type: application/json
+###
+PUT http://localhost:5000/api/Skills/7
+Content-Type: application/json
+
+{
+     "name": ".NetCore" 
+}
+
+###
+DELETE http://localhost:5000/api/Skills/5
+Content-Type: application/json
+
+
+# Requête for Grade
+
+###
+GET http://localhost:5000/api/Grade
+Content-Type: application/json
+
+###
+POST http://localhost:5000/api/Grade/wilder/1/skill/1
+
+{
+     "grade": 8,
+}
+
+###
+DELETE http://localhost:5000/api/Grade/1
+Content-Type: application/json
+
+###
+GET http://localhost:5000/api/Grade/1
+Content-Type: application/json
+
+###
+PUT http://localhost:5000/api/Grade/1
+Content-Type: application/json
+
+{
+     "grade":5
+}

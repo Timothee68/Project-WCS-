@@ -8,6 +8,7 @@ module.exports= {
        entities: [
            require("./entity/Wilder"),
            require("./entity/Skills"),
+           require("./entity/Grade"),
         ], 
        logging: ["query" ,"error"],
    })

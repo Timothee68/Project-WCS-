@@ -1,30 +1,31 @@
 const dataSource = require("../utils").dataSource;
 const Grade = require("../entity/Grade");
-const Skill = require("../entity/Skills");
+const Skills = require("../entity/Skills");
 const Wilder = require("../entity/Wilder");
 
 module.exports = {
 
-    create: async (req , res) => {
+    create: async (req, res) => {
         try {
             const wilderFromDB = await dataSource
                 .getRepository(Wilder)
-                .findOneBy({ wilderId: req.params.id });
+                .findOneBy({ name: req.body.wilder });
                 console.log("Wilder from DB", wilderFromDB);
 
             const skillFromDB = await dataSource
-                .getRepository(Skill)
-                .findOneBy({ skillsId: req.params.id });
+                .getRepository(Skills)
+                .findOneBy({ name: req.body.skill });
                 console.log("Skill from DB", skillFromDB);
-
+           
             await dataSource.getRepository(Grade).save({
                 grade: req.body.grade,
                 skill: skillFromDB,
                 wilder: wilderFromDB,
-            });
-            res.send(" Add" );
+        });
+            res.send("Created Grade");
         } catch (error) {
-            res.send(error, "error");
+            console.log(error);
+            res.send("Error while creating grade");
         }
     },
     update: async (req , res) => {

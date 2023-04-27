@@ -60,18 +60,21 @@ GET http://localhost:5000/api/Grade
 Content-Type: application/json
 
 ###
-POST http://localhost:5000/api/Grade/wilder/1/skill/1
+POST http://localhost:5000/api/Grade
+Content-Type: application/json
 
 {
-     "grade": 8,
+     "grade": 18,
+     "skill": "JavaScript",
+     "wilder": "eric"
 }
 
 ###
-DELETE http://localhost:5000/api/Grade/1
+DELETE http://localhost:5000/api/Grade/13
 Content-Type: application/json
 
 ###
-GET http://localhost:5000/api/Grade/1
+GET http://localhost:5000/api/Grade/5
 Content-Type: application/json
 
 ###

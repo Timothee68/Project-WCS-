@@ -22,7 +22,7 @@ const WilderCard = ({name}) => {
                 </p>
                 <h4>Wild Skills</h4>
                 <ul>
-                    {data.map( x=> <li><Skill name={x.name} votes={x.votes}></Skill></li>)}           
+                    {data.map( (wilder) => <li><Skill key={wilder.key} name={wilder.name} votes={wilder.votes}></Skill></li>)}           
                 </ul>
             </div>
         )}

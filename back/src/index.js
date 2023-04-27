@@ -30,7 +30,7 @@ app.delete("/api/Skills/:id" , SkillsController.delete);
 
 app.get("/api/Grade" , GradeController.getAll);
 app.get("/api/Grade/:id", GradeController.getOne);
-app.post("/api/Grade/wilder/:id/skill/:idSkill" , GradeController.create);
+app.post("/api/Grade" , GradeController.create);
 app.put("/api/Grade/:id" , GradeController.update);
 app.delete("/api/Grade/:id" , GradeController.delete);
 

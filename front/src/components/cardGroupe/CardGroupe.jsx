@@ -1,23 +1,25 @@
 import styles from "./CardGroupe.module.css";
 import WilderCard from "../../components/wilderCard/WilderCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CardGroupe = ({title}) => {
-    const data = [
-        {name: "jhon Doe"},
-        {name: "Tim luc"},
-        {name: "Jeanne Mass"},
-        {name: "eric jubert"},
-        {name: "garfield le chat"},
-        {name: "Chat potté"},
-        {name: "Arthure lesourd"},
-        {name: "Patrick starOcean"},
-    ];
+    const [wilders, setWilders]= useState([])
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const Wilders = await axios.get("http://localhost:5000/api/Wilder");
+            setWilders(Wilders.data)
+        }
+        fetchData();
+    }, [] );
+    
+    console.log(wilders)
     return (<div className={styles.CardGroupe}>
                 <h2> {title} </h2>
 
                 <div className={styles.flexCard}>
-                    {data.map( x=> <div> <WilderCard name={x.name}></WilderCard></div>)};       
+                    {wilders.map( x=> <div> <WilderCard name={x.name}></WilderCard></div>)};       
                 </div>
 
             </div>

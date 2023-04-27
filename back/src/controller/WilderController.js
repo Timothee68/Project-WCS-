@@ -17,9 +17,13 @@ module.exports = {
     },
     update: async (req , res) => {
         try {
+            console.log(req.body)
             await dataSource
             .getRepository(Wilder)
-            .update({id: req.params.id},{ name:req.body.name})
+            .update(
+                {id: req.params.id},
+                {name:req.body.name, city:req.body.city},
+            )
             res.send("Updated Wilder");
         } catch (error) {
             res.send("Error");

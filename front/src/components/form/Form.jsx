@@ -3,7 +3,7 @@ import styles from "./Form.module.css";
 import { useEffect, useState } from "react";
 
 
-const AddWilder = ( { id, fetchData, type}  ) => {
+const AddWilder = ( { id, fetchData, type ,handleActif}  ) => {
     const [name, setName] = useState("");
     const [city, setCity] = useState("");
     const [buttonText, setButtonText] = useState("");
@@ -29,13 +29,15 @@ const AddWilder = ( { id, fetchData, type}  ) => {
                     axios.post("http://localhost:5000/api/Wilder", { name , city})
                     .then((response) => {
                         fetchData();
+
                     });
                     
                 } else if(type === "update") {
                     axios
                     .put(`http://localhost:5000/api/Wilder/${id}`, { name, city })
                     .then((response) => {
-                      fetchData();
+                        handleActif();
+                        fetchData();
                     });
                 }
             }}

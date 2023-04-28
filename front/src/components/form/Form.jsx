@@ -3,9 +3,10 @@ import styles from "./Form.module.css";
 import { useEffect, useState } from "react";
 
 
-const AddWilder = ( { id, fetchData, type ,handleActif}  ) => {
-    const [name, setName] = useState("");
-    const [city, setCity] = useState("");
+const AddWilder = ( { id, fetchData, type ,handleActif , nameW , cityW}  ) => {
+    const [name, setName] = useState(nameW);
+    const [city, setCity] = useState(cityW);
+
     const [buttonText, setButtonText] = useState("");
     const [formTitle, setFormTitle] = useState("");
 
@@ -19,6 +20,7 @@ const AddWilder = ( { id, fetchData, type ,handleActif}  ) => {
         }
       }, [type]);
 
+   
     return (
         <div className={styles.form}>
             <h1>{formTitle}</h1>
@@ -45,15 +47,16 @@ const AddWilder = ( { id, fetchData, type ,handleActif}  ) => {
                 <label>Name:</label>
                 <input
                     type="text"
-                    value={name}
+                    value= {type === "add" ? name : name }
                     onChange={e => { setName(e.target.value)}}
                 />
                 <br/>
                 <label>City:</label>
                 <input
                     type="text"
-                    value={city}
+                    value= {type === "add" ? city : city }
                     onChange={e => { setCity(e.target.value)}}
+
                 />
                 <br />
                 <button>{buttonText}</button>

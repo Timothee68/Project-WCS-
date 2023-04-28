@@ -15,6 +15,7 @@ function App() {
     setWilders(Wilders.data);
     const SkillsData = await axios.get("http://localhost:5000/api/Skills");
     setSkillsData(SkillsData.data);
+    // console.log(Wilders, "sduivdshguihgcuirhgursikcghutdghcduighdyu");
   }
 
 

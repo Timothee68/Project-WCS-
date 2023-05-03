@@ -13,9 +13,9 @@ function App() {
   const fetchData = async () => {
     const Wilders = await axios.get("http://localhost:5000/api/Wilder");
     setWilders(Wilders.data);
-    const SkillsData = await axios.get("http://localhost:5000/api/Skills");
+    const SkillsData = await axios.get("http://localhost:5000/api/Skill");
     setSkillsData(SkillsData.data);
-    // console.log(Wilders, "sduivdshguihgcuirhgursikcghutdghcduighdyu");
+
   }
 
 

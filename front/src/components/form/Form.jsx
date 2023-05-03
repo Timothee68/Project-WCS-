@@ -31,7 +31,6 @@ const AddWilder = ( { id, fetchData, type ,handleActif , nameW , cityW}  ) => {
                     axios.post("http://localhost:5000/api/Wilder", { name , city})
                     .then((response) => {
                         fetchData();
-
                     });
                     
                 } else if(type === "update") {
@@ -47,14 +46,14 @@ const AddWilder = ( { id, fetchData, type ,handleActif , nameW , cityW}  ) => {
                 <label>Name:</label>
                 <input
                     type="text"
-                    value= {type === "add" ? name : name }
+                    value= { name  }
                     onChange={e => { setName(e.target.value)}}
                 />
                 <br/>
                 <label>City:</label>
                 <input
                     type="text"
-                    value= {type === "add" ? city : city }
+                    value= { city  }
                     onChange={e => { setCity(e.target.value)}}
 
                 />

@@ -1,6 +1,6 @@
 import styles from "./CardGroupe.module.css";
 import WilderCard from "../../components/wilderCard/WilderCard";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 const CardGroupe = ({title ,skillsData, fetchData , wilders}) => {
@@ -19,15 +19,15 @@ const CardGroupe = ({title ,skillsData, fetchData , wilders}) => {
     return (<div className={styles.CardGroupe}>
                 <h2> {title} </h2>
                 <div className={styles.flexCard}>
-                    {wilders?.map( x=>
+                    {wilders?.map( wilder =>
                         <div> 
                             <WilderCard 
-                                key={x.id}
-                                id={x.id} 
-                                name={x.name}
-                                city={x.city}
-                                skills={x.skills} 
-                                onDelete={() => handleDelete(x.id)} 
+                                key={wilder.id}
+                                id={wilder.id} 
+                                name={wilder.name}
+                                city={wilder.city}
+                                skill={wilder.skill} 
+                                onDelete={() => handleDelete(wilder.id)} 
                                 fetchData={ fetchData }
                                 skillsData={skillsData}                      
                             >

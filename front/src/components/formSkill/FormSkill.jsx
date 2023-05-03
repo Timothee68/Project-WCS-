@@ -13,7 +13,7 @@ const AddSkill = ( { id, fetchData, type}  ) => {
                 onSubmit = { (e) => {
                 e.preventDefault();
                
-                    axios.post("http://localhost:5000/api/Skills", { name})
+                    axios.post("http://localhost:5000/api/Skill", { name})
                     .then((response) => {
                         alert(`${name}, Skill add to success`);
                         fetchData();

@@ -14,44 +14,44 @@ Content-Type: application/json
 GET http://localhost:5000/api/Wilder
 Content-Type: application/json
 ###
-PUT http://localhost:5000/api/Wilder/7
+PUT http://localhost:5000/api/Wilder/1
 Content-Type: application/json
 
 {
-     "name": "jean",
-     "city": "Sept" 
+     "name": "jeanne",
+     "city": "Trois" 
 }
 
 ###
-DELETE http://localhost:5000/api/Wilder/8
+DELETE http://localhost:5000/api/Wilder/3
 Content-Type: application/json
 
 
-# request for skills
+# request for skill
 ###
-POST http://localhost:5000/api/Skills
+POST http://localhost:5000/api/Skill
 Content-Type: application/json
 
 {
-     "name": "PHP" 
+     "name": "cdfsffg" 
 }
 
 ###
-GET http://localhost:5000/api/Skills/2
+GET http://localhost:5000/api/Skill/2
 Content-Type: application/json
 ###
-GET http://localhost:5000/api/Skills
+GET http://localhost:5000/api/Skill
 Content-Type: application/json
 ###
-PUT http://localhost:5000/api/Skills/7
+PUT http://localhost:5000/api/Skill/8
 Content-Type: application/json
 
 {
-     "name": ".NetCore" 
+     "name": "Twig" 
 }
 
 ###
-DELETE http://localhost:5000/api/Skills/27
+DELETE http://localhost:5000/api/Skill/8
 Content-Type: application/json
 
 
@@ -66,13 +66,13 @@ POST http://localhost:5000/api/Grade
 Content-Type: application/json
 
 {
-     "grade": 7,
-     "skills": "JavaScript",
-     "wilder": "jeanne"
+     "grade": 10,
+     "skill": "PHP",
+     "wilder": "jean"
 }
 
 ###
-DELETE http://localhost:5000/api/Grade/29
+DELETE http://localhost:5000/api/Grade/4
 Content-Type: application/json
 
 ###
@@ -84,5 +84,7 @@ PUT http://localhost:5000/api/Grade/1
 Content-Type: application/json
 
 {
-     "grade":5
+     "grade": 7,
+     "skill": "JavaScript",
+     "wilder": "jeanne"
 }

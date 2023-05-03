@@ -1,15 +1,14 @@
 import tete from "../../assets/tete.png";
 import { useEffect, useState } from "react";
-import Skill from "../../components/skills/Skill";
+import Skill from "../../components/skill/Skill";
 import styles from "./WilderCard.module.css";
 import Form from "../../components/form/Form";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 
-const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData}) => {
-    const [nameW , setNameW] = useState(name);
-    const [cityW , setCityW] = useState(city);
+const WilderCard = ({id, name , city, skill, onDelete , fetchData, skillsData}) => {
+
     const [actif, setActif] = useState(false);
     const handleActif = () => {
         setActif(!actif);
@@ -66,7 +65,7 @@ const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData})
                                     }
                                 >
                                     <select name="Skill">
-                                        {skillsData.Skills?.map( (skill) => <option value={skill.name}> {skill.name}</option> )}
+                                        {skillsData.Skill?.map( (skill) => <option value={skill.name}> {skill.name}</option> )}
                                     
                                     </select>
                                     <label for="Grade">Number of Grade (1-10):</label>
@@ -85,11 +84,11 @@ const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData})
                     </Modal>
                 </>
                 <ul>
-                    {skills?.map( (skill) => <li><Skill name={skill.title} votes={skill.votes}></Skill> </li>)}            
+                    {skill?.map( (skill) => <li><Skill name={skill.title} votes={skill.votes}></Skill> </li>)}            
                 </ul>
                 <hr/>
                 <button onClick={() => handleActif()}>{actif ? "cancel" : "update"}</button>
-                {actif ? <Form nameW={nameW} cityW={cityW} fetchData={ fetchData } type="update" id={id} handleActif={handleActif}></Form> : null }
+                {actif ? <Form nameW={name} cityW={city} fetchData={ fetchData } type="update" id={id} handleActif={handleActif}></Form> : null }
                 <br/>
                 <button onClick={() => onDelete(id) } >Delete</button>
             </div>

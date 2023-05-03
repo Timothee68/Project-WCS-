@@ -39,37 +39,38 @@ export default {
             res.send("Error");
         }
     },
-    getAll: async (req :Request , res :Response) => {
+    getAll: async (req: Request, res: Response) => {
         try {
-  
-            const grades = await dataSource.getRepository(Grade).find();
-                console.log(grades);
-  
-            const wilders = await dataSource.getRepository(Wilder).find();
-                console.log("wilders", wilders);
-  
-            const data = wilders.map((wilder) => {
-                
-                const wilderGrades = grades.filter(
-                    (grade) => grade.wilder.id === wilder.id
-                );
-  
-                const wilderGradesLean = wilderGrades.map((el) => {
-                    return { title: el.skill.name, votes: el.grade };
-                });
-    
-                const result = {
-                    ...wilder,
-                    skill: wilderGradesLean,
-                };
-                console.log(result);
-                return result;
-            });
-                res.send(data);
+          const grades = await dataSource.getRepository(Grade).find();
+          console.log(grades, " gdfgdgdfgdfgdfgdgf");
+      
+          const wilders = await dataSource.getRepository(Wilder).find();
+          console.log("wilders", wilders);
+      
+          const data = wilders.map((wilder: Wilder) => {
 
+            const wilderGrades = grades.filter(
+              (grade) => grade.wilderId === wilder.id
+            );
+
+            const wilderGradesLean = wilderGrades.map((el : Grade) => {
+              console.log(el)  
+              return { title: el.skill.name , votes: el.grade };
+            });
+
+            const result = {
+              ...wilder,
+              skill: wilderGradesLean,
+            };
+            console.log(result, "result");
+            console.log(wilderGradesLean, "degfg");
+            return result;
+          });
+          
+          res.send(data);
         } catch (error) {
-            console.log(error);
-            res.send("error while querying wilders");
+          console.log(error);
+          res.send("error while querying wilders");
         }
     },
     getOne: async (req :Request , res :Response) => {

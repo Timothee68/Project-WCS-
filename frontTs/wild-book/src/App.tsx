@@ -5,7 +5,7 @@ import Form from "./components/form/Form";
 import FormSkill from "./components/formSkill/FormSkill";
 import { useState } from "react";
 import axios from "axios";
-import {ISkill,ISkillData,IWilder} from "./utils/interface";
+import {ISkillData,IWilder} from "./utils/interface";
 
 
 function App() {
@@ -18,7 +18,6 @@ function App() {
     setWilders(Wilders.data);
     const SkillsData = await axios.get<ISkillData[]>("http://localhost:5000/api/Skill");
     setSkillsData(SkillsData.data);
-
   }
 
   const [actif, setActif] = useState(false) ;
@@ -26,7 +25,6 @@ function App() {
       setActif(!actif);
       };
 
-console.log(wilders)
   return (
 
     <div className="App">

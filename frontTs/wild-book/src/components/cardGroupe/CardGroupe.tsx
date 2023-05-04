@@ -16,7 +16,7 @@ const CardGroupe = ({ title, skillsData, fetchData, wilders }: ICardGroupe) => {
 
     useEffect(() => {
         fetchData();
-    }, [fetchData] );
+    }, [] );
 
     return (<div className={styles.CardGroupe}>
                 <h2> {title} </h2>
@@ -29,9 +29,9 @@ const CardGroupe = ({ title, skillsData, fetchData, wilders }: ICardGroupe) => {
                                 city={wilder.city}
                                 skills={wilder.skill} 
                                 onDelete={() => handleDelete(wilder.id)} 
-                                fetchData={ fetchData }
+                                fetchData={fetchData}
                                 skillsData={skillsData}                      
-                            ></WilderCard>
+                            />
                         </div>
                     )}       
                 </div>

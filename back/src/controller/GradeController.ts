@@ -12,12 +12,10 @@ export default {
             const wilderFromDB = await dataSource
                 .getRepository(Wilder)
                 .findOneBy({ name: req.body.wilder });
-                console.log("Wilder from DB", wilderFromDB);
 
             const skillFromDB = await dataSource
                 .getRepository(Skill)
                 .findOneBy({ name: req.body.skill });
-                console.log("skill from DB", skillFromDB);
 
             const gradeBodyR: number = req.body.grade;
 

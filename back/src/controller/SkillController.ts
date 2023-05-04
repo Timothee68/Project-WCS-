@@ -38,7 +38,7 @@ export default {
           const skill = await dataSource
             .getRepository(Skill)
             .find();
-          res.json({ Skill: skill });
+          res.json( skill );
         } catch (error) {
           res.send("Error");
         }

@@ -13,8 +13,8 @@ export interface ISkill {
 }
 
 export interface ISkillData{
-    id:number
-    name:string
+    id: number;
+    name: string; 
 }
 
 //  component interface 

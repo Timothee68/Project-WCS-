@@ -6,7 +6,7 @@ import Form from "../form/Form";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
-import { ISkill, IWilderCard } from "../../utils/interface";
+import { ISkill , ISkillData, IWilderCard } from "../../utils/interface";
 
 
 const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData}: IWilderCard) => {
@@ -22,7 +22,7 @@ const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData}:
 
     useEffect(() => {
         fetchData();
-    }, [fetchData] );
+    }, [] );
 
     console.log(skillsData)
     return (<div className={styles.card}>
@@ -47,29 +47,29 @@ const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData}:
                             <div>
                                 <h1>Adding a new skill to {name}</h1>
                                 <form 
-                                    onSubmit = { (e) => {
-                                        console.log(e.target)    
-                                        // const skillName: string = e.target.elements.Skill.value;
-                                        // const grade: number = e.target.elements.Grade.value ;
-                                        // console.log(grade, skillName, name)
-                                        // e.preventDefault();
-                                        // axios.post(`http://localhost:5000/api/Grade`, {  
-                                        //     grade: grade,
-                                        //     skill: skillName,
-                                        //     wilder: name,
-                                        //     })
-                                        //     .then((response) => {
-                                        //         fetchData();
-                                        //         handleClose();
-                                        //     }).catch((error) => {
-                                        //         console.error(error);
-                                        //     })
+                                    onSubmit = { (e: React.FormEvent<HTMLFormElement>) => {
+        
+                                        const skillName: string = e.currentTarget.Skill.value;
+                                        const grade: number = e.currentTarget.Grade.value;
+                                        
+                                        e.preventDefault();
+                                        axios.post(`http://localhost:5000/api/Grade`, {  
+                                            grade: grade,
+                                            skill: skillName,
+                                            wilder: name,
+                                            })
+                                            .then((response) => {
+                                                fetchData();
+                                                handleClose();
+                                            }).catch((error) => {
+                                                console.error(error);
+                                            })
                                          }
                                     }>
                                         
                                     <label htmlFor="Skill">Skill to add</label>
                                     <select name="Skill">
-                                        {skillsData?.map( (skill) => <option value={skill.name}> {skill.name}</option> )}
+                                        { skillsData?.map( (skill: ISkillData) => <option value={skill.name}> {skill.name}</option> )}
                                     </select>
 
                                     <label htmlFor="Grade">Number of Grade (1-10):</label>

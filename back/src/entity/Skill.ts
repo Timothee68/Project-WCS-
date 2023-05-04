@@ -4,7 +4,7 @@ import { Grade } from "./Grade";
     export class Skill {
 
     @PrimaryGeneratedColumn()
-    id: number;
+        id: number;
 
     @Column()
         name: string

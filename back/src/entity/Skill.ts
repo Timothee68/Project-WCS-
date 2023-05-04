@@ -10,5 +10,5 @@ import { Grade } from "./Grade";
         name: string
 
     @OneToMany(() => Grade , (grade) => grade.skill)
-        public grade: Grade
+        public grades: Grade[]
 };

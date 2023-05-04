@@ -18,7 +18,7 @@ import { Wilder } from "./Wilder";
         @Column()
             skillId: number 
 
-        @ManyToOne(() => Skill, (skill) => skill.grade)
+        @ManyToOne(() => Skill, (skill) => skill.grades)
         public skill: Skill;
         
         @ManyToOne(() => Wilder, (wilder) => wilder.grades)

@@ -41,29 +41,27 @@ export default {
     },
     getAll: async (req: Request, res: Response) => {
         try {
-          const grades = await dataSource.getRepository(Grade).find();
-          console.log(grades, " gdfgdgdfgdfgdfgdgf");
+          const grades = await dataSource.getRepository(Grade).find({ relations: { wilder: true, skill: true } });
+        // console.log(" grades", grades);
       
           const wilders = await dataSource.getRepository(Wilder).find();
-          console.log("wilders", wilders);
+        //  console.log("wilders", wilders);
       
           const data = wilders.map((wilder: Wilder) => {
 
             const wilderGrades = grades.filter(
-              (grade) => grade.wilderId === wilder.id
+                (grade: Grade) => grade.wilderId === wilder.id
             );
 
             const wilderGradesLean = wilderGrades.map((el : Grade) => {
-              console.log(el)  
+               console.log(el )
               return { title: el.skill.name , votes: el.grade };
             });
-
+            //  console.log("data", data);
             const result = {
               ...wilder,
               skill: wilderGradesLean,
             };
-            console.log(result, "result");
-            console.log(wilderGradesLean, "degfg");
             return result;
           });
           

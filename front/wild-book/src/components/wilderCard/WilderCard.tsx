@@ -8,8 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { ISkill , ISkillData, IWilderCard } from "../../utils/interface";
 
-
-const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData}: IWilderCard) => {
+const WilderCard = ({id, name ,url, city, skills, onDelete , fetchData, skillsData}: IWilderCard) => {
 
     const [actif, setActif] = useState(false) ;
     const handleActif = () => {
@@ -26,7 +25,7 @@ const WilderCard = ({id, name , city, skills, onDelete , fetchData, skillsData}:
 
     console.log(skillsData)
     return (<div className={styles.card}>
-                <img src={tete} alt={`${name} Profile`}/>
+                {url ? <img src={url} alt={`${name} Profile`}/> : <img src={tete} alt={`${name} Profile Avatar`}/>} 
                 <h3>{name}</h3>
                 <h3>Location :{city}</h3>
                 <p>

@@ -12,15 +12,22 @@ export default {
             const wilderFromDB = await dataSource
                 .getRepository(Wilder)
                 .findOneBy({ name: req.body.wilder });
-
+            console.log("wilder" , wilderFromDB)
             const skillFromDB = await dataSource
                 .getRepository(Skill)
                 .findOneBy({ name: req.body.skill });
-
+            console.log("skill" , skillFromDB)
             const gradeBodyR: number = req.body.grade;
+    
+            if( wilderFromDB != null && skillFromDB != null ){
 
-            if( wilderFromDB != null && skillFromDB != null){
-                
+                const existingGrade = await dataSource
+                .getRepository(Grade)
+                .findOneBy({ wilderId: wilderFromDB.id, skill: skillFromDB });
+
+                if (existingGrade != null) {
+                    return res.status(400).send('Une note existe déjà pour ce Wilder et cette compétence');
+                }
                 await dataSource.getRepository(Grade).save({
                     grade: gradeBodyR,
                     skill: skillFromDB,

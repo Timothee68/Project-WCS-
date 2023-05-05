@@ -4,6 +4,7 @@ export interface IWilder {
     id: number;
     name: string;
     city: string;
+    url:string;
     skill: ISkill[];
 }
 
@@ -34,6 +35,7 @@ export interface IWilderCard {
     id: number;
     name: string;
     city: string;
+    url:string;
     skills?: ISkill[];
     onDelete: (id: number) => void;
     fetchData: () => void;

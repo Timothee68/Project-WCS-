@@ -10,8 +10,12 @@ import { Grade } from "./Grade";
         name: string
 
     @Column()
-        city: string 
-        
+        city: string
+    
+    @Column( { nullable: true } )
+        url: string
+
     @OneToMany(() => Grade , (grade) => grade.wilder)
         public grades: Grade[]
+
 };

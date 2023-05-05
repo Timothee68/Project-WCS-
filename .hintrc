@@ -9,6 +9,12 @@
         "label": "off",
         "select-name": "off"
       }
+    ],
+    "axe/text-alternatives": [
+      "default",
+      {
+        "input-image-alt": "off"
+      }
     ]
   }
 }

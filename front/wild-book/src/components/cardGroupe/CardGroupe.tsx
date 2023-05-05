@@ -27,6 +27,7 @@ const CardGroupe = ({ title, skillsData, fetchData, wilders }: ICardGroupe) => {
                                 id={wilder.id} 
                                 name={wilder.name}
                                 city={wilder.city}
+                                url={wilder.url}
                                 skills={wilder.skill} 
                                 onDelete={() => handleDelete(wilder.id)} 
                                 fetchData={fetchData}

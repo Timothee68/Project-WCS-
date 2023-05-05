@@ -13,7 +13,8 @@ Content-Type: application/json
 
 {
      "name": "other",
-     "city": "city" 
+     "city": "city",
+     "url": "./public/uploads/1ca18cec-c10d-43f9-af19-b86d32812851-327271396_1147563572572430_189234280425402132_n.jpg"
 }
 
 ###
@@ -78,19 +79,24 @@ Content-Type: application/json
 {
      "grade": 10,
      "skill": "React",
-     "wilder": "other"
+     "wilder": "Marie Moulon"
 }
 
+# marche pas !
 ###
-PUT http://localhost:5000/api/Grade/1
+PUT http://localhost:5000/api/Grade/4
 Content-Type: application/json
 
 {
-     "grade": 7,
-     "skill": "JavaScript",
-     "wilder": "jeanne"
+     "grade": 1,
+     "skill": "React",
+     "wilder": "Marie Moulon"
 }
 
 ###
 DELETE http://localhost:5000/api/Grade/1
 Content-Type: application/json
+
+###
+
+POST http://localhost:5000/api/avatar

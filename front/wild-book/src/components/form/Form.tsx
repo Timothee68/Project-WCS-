@@ -5,9 +5,9 @@ import { IAddWilderUpdate ,IAddWilder } from "../../utils/interface";
 
 
 const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddWilder & IAddWilderUpdate   ) => {
+
     const [name, setName] = useState(nameW);
     const [city, setCity] = useState(cityW);
-
     const [buttonText, setButtonText] = useState("");
     const [formTitle, setFormTitle] = useState("");
 
@@ -21,11 +21,11 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
         }
       }, [type]);
 
-   
+      
     return (
         <div className={styles.form}>
             <h1>{formTitle}</h1>
-            <form 
+            <form encType="multipart/form-data"
                 onSubmit = { (e) => {
                 e.preventDefault();
                 if (type === "add"){
@@ -59,6 +59,9 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
 
                 />
                 <br />
+                <label>Image:</label>
+                <input type="file" name="avatar"/>
+
                 <button>{buttonText}</button>
             </form>
         </div>

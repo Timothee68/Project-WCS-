@@ -20,7 +20,7 @@ export default {
             .getRepository(Wilder)
             .update(
                 {id: parseInt(req.params.id)},
-                {name:req.body.name, city:req.body.city},
+                {name:req.body.name, city:req.body.city, url:req.body.url},
             )
             res.send("Updated Wilder");
         } catch (error) {

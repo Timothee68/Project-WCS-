@@ -1,6 +1,6 @@
 import axios from "axios";
 import styles from "./Form.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IAddWilderUpdate ,IAddWilder } from "../../utils/interface";
 
 
@@ -10,6 +10,7 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
     const [city, setCity] = useState(cityW);
     const [buttonText, setButtonText] = useState("");
     const [formTitle, setFormTitle] = useState("");
+    const fileInputRef:any = useRef(null);
 
     useEffect(() => {
         if (type === "add") {
@@ -20,7 +21,7 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
             setFormTitle("Update Wilder");
         }
       }, [type]);
-
+        
       
     return (
         <div className={styles.form}>
@@ -29,11 +30,18 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
                 onSubmit = { (e) => {
                 e.preventDefault();
                 if (type === "add"){
-                    axios.post("http://localhost:5000/api/Wilder", { name , city})
+                    const formData:FormData = new FormData();
+                    // Ajouter les données de texte à l'objet FormData
+                    formData.append('name', name as string);
+                    formData.append('city', city as string);
+                    // Ajouter le fichier à l'objet FormData
+                    formData.append('url', fileInputRef.current.files[0]);
+
+                    axios.post("http://localhost:5000/api/Wilder", formData)
                     .then((response) => {
                         fetchData();
                     });
-                    
+                    // fileInputRef.current.files.file.name
                 } else if(type === "update") {
                     axios
                     .put(`http://localhost:5000/api/Wilder/${id}`, { name, city })
@@ -60,7 +68,7 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
                 />
                 <br />
                 <label>Image:</label>
-                <input type="file" name="avatar"/>
+                <input type="file" name="avatar" ref={fileInputRef}/>
 
                 <button>{buttonText}</button>
             </form>

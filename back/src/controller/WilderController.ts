@@ -2,14 +2,30 @@ import  dataSource from "../utils";
 import { Wilder } from "../entity/Wilder";
 import { Grade } from "../entity/Grade";
 import { Request, Response } from "express";
+// import multer from "multer";
+import fs from "fs";
+// import path from "path";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
     create: async (req :Request , res :Response) => {
         try {
-            await dataSource
-            .getRepository(Wilder)
-            .save(req.body)
-            res.send("Created Wilder");
+            console.log("req.file", req.file)
+            if(req.file !=null ){
+                console.log("request front",req.file)
+                const { originalname } = req.file;
+                const { filename } = req.file;
+                const route =`public/uploads/${uuidv4()}-${originalname}`;
+                fs.rename(`public/uploads/${filename}`, `public/uploads/${uuidv4()}-${originalname}`, (err) => {
+                    if (err!=null) throw err;
+      
+                });
+                const reqtotal = {...req.body, url: route}
+                await dataSource
+                .getRepository(Wilder)
+                .save(reqtotal)
+                res.send("Created Wilder");
+            }
         } catch (error) {
             res.send("Error");
         }

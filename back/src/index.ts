@@ -5,9 +5,9 @@ import WilderController  from "./controller/WilderController";
 import SkillController  from "./controller/SkillController";
 import GradeController  from "./controller/GradeController";
 import multer from "multer";
-import fs from "fs";
+// import fs from "fs";
 import path from "path";
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const port = 5000;
@@ -41,19 +41,7 @@ app.get("/", (req :Request , res :Response) => {
 
 app.get("/api/Wilder", WilderController.getAll);
 app.get("/api/Wilder/:id", WilderController.getOne);
-app.post("/api/Wilder" , WilderController.create , upload.single( "avatar" ), async( req: Request ,  res:Response ,  next: NextFunction ) => { 
-    console.log("file data all " , req.file)
-    if(req.file !=null ){
-	    const { originalname } = req.file;
-        const { filename } = req.file;
-
-        fs.rename(`public/uploads/${filename}`, `public/uploads/${uuidv4()}-${originalname}`, (err) => {
-            if (err!=null) throw err;
-            res.send("File uploaded");
-        });
-    }
-    
-  });
+app.post("/api/Wilder", upload.single( "url" ) , WilderController.create);
 app.put("/api/Wilder/:id" , WilderController.update);
 app.delete("/api/Wilder/:id" , WilderController.delete);
 

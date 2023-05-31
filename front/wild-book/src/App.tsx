@@ -4,26 +4,55 @@ import CardGroupe from "./components/cardGroupe/CardGroupe";
 import Form from "./components/form/Form";
 import FormSkill from "./components/formSkill/FormSkill";
 import { useState } from "react";
-import axios from "axios";
+import { useQuery, gql } from '@apollo/client';
 import {ISkillData,IWilder} from "./utils/interface";
 
+const GET_ALL_WILDERS = gql`
+  query getAllWilders {
+    getAllWilders {
+      id
+      name
+      city
+      grades {
+        id
+        grade
+        skill {
+          id
+          name
+        }
+      }
+    }
+  }
+`
+const GET_ALL_SKILLS = gql`
+  query getAllSkills {
+    skills {
+      id
+      name
+    }
+  }
+`;
 
 function App() {
 
-  const [wilders, setWilders]= useState<IWilder[]>([]);
-  const [skillsData, setSkillsData]= useState<ISkillData[]>([]);
+  const [Wilder , setWilder ] = useState()
+  const [Skill , setSkill ] = useState()
+  
   const fetchData = async (): Promise<void> => {
-    
-    const Wilders = await axios.get<IWilder[]>("http://localhost:5000/api/Wilder");
-    setWilders(Wilders.data);
-    const SkillsData = await axios.get<ISkillData[]>("http://localhost:5000/api/Skill");
-    setSkillsData(SkillsData.data);
+    const { loading: wildersLoading, error: wildersError, data: wildersData } = useQuery(GET_ALL_WILDERS);
+    const { loading: skillsLoading, error: skillsError, data: skillsDatas } = useQuery(GET_ALL_SKILLS);
   }
 
   const [actif, setActif] = useState(false) ;
-  const handleActif = () => {
-      setActif(!actif);
-      };
+  const handleActif = () => { setActif(!actif); };
+  
+
+
+  if (wildersLoading || skillsLoading) return <div>Loading...</div>;
+  if (wildersError || skillsError) return <div>Error</div>;
+
+  const wilders = wildersData ? wildersData.wilders : [];     
+  const skillsData = skillsDatas ? skillsDatas.skills : [];
 
   return (
 

@@ -23,9 +23,9 @@ const WilderCard = ({id, name ,url, city, skills, onDelete , fetchData, skillsDa
         fetchData();
     }, [] );
 
-    console.log(url)
+    console.log("/"+url)
     return (<div className={styles.card}>
-                { url ? <img src={`../../../back/${url}`} alt={`${name} Profile`}/> : <img src={tete} alt={`${name} Profile Avatar`}/>} 
+                { url ? <img src={`/${url}`} alt={`${name} Profile`}/> : <img src={tete} alt={`${name} Profile Avatar`}/>} 
                 <h3>{name}</h3>
                 <h3>Location :{city}</h3>
                 <p>

@@ -21,7 +21,10 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
             setFormTitle("Update Wilder");
         }
       }, [type]);
-        
+
+
+
+
       
     return (
         <div className={styles.form}>
@@ -36,19 +39,17 @@ const AddWilder = ( { fetchData, type , id,  handleActif , nameW , cityW}: IAddW
                     formData.append('city', city as string);
                     // Ajouter le fichier à l'objet FormData
                     formData.append('url', fileInputRef.current.files[0]);
-
-                    axios.post("http://localhost:5000/api/Wilder", formData)
-                    .then((response) => {
-                        fetchData();
-                    });
-                    // fileInputRef.current.files.file.name
+                    CREATED_WILDER = gql`
+                        
+                    `;
+                    const { loading , error , data  } = useQuery(CREATED_WILDER);
+                    
+        
                 } else if(type === "update") {
-                    axios
-                    .put(`http://localhost:5000/api/Wilder/${id}`, { name, city })
-                    .then((response) => {
-                        handleActif();
-                        fetchData();
-                    });
+                    UPDATE_WILDER = gql`
+      
+                    `;
+                    const { loading , error , data  } = useQuery(UPDATE_WILDER);
                 }
             }}
             >

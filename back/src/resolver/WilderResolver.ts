@@ -38,16 +38,29 @@ export class WilderResolver {
             newWilder.url = url;
 
             const wilderFromDB = await dataSource.manager.save(Wilder, newWilder);
-
-            console.log(wilderFromDB)
-            
             return wilderFromDB
         }
+
+    @Mutation(() => Wilder)
+    async updateWilder(
+        @Arg("id") id: number,
+        @Arg("name") name: string,
+        @Arg("city") city: string
+    ): Promise<Wilder> {
+        const wilderToUpdate = await dataSource.manager.findOne(Wilder, { where: { id } });
+    
+        if (wilderToUpdate == null ) throw new Error("Wilder not found");
+        wilderToUpdate.name = name;
+        wilderToUpdate.city = city;    
+        const updatedWilder = await dataSource.manager.save(Wilder, wilderToUpdate);
+        console.log(updatedWilder);      
+        return updatedWilder;
+    }
 
     @Mutation( () => Boolean)
     async deleteWilder(@Arg("id") id: number ): Promise<Boolean> {
         const wilderToDelete = await dataSource.manager.findOne(Wilder,  {where: {id} })
-        await dataSource.manager.delete(Wilder , wilderToDelete)
+        await dataSource.manager.remove(Wilder , wilderToDelete)
         return true;
     }
 }

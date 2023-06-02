@@ -1,8 +1,8 @@
-import axios from "axios";
 import styles from "./Form.module.css";
 import { useEffect, useRef, useState } from "react";
 import { IAddWilderUpdate ,IAddWilder } from "../../utils/interface";
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import {GET_ALL_WILDERS , CREATE_WILDER, UPDATE_WILDER} from "../../utils/gql"
 
 const AddWilder = ( {  type , id,  handleActif , nameW , cityW}: IAddWilder & IAddWilderUpdate   ) => {
 
@@ -13,111 +13,43 @@ const AddWilder = ( {  type , id,  handleActif , nameW , cityW}: IAddWilder & IA
     const fileInputRef:any = useRef(null);
 
     useEffect(() => {
-        if (type === "add") {
-            setButtonText("Add wilder");
-            setFormTitle("Add Wilder");
-        } else if(type === "update") {
-            setButtonText("Update wilder");
-            setFormTitle("Update Wilder");
-        }
+        if (type === "add") { setButtonText("Add wilder"); setFormTitle("Add Wilder"); }
+        else if(type === "update") { setButtonText("Update wilder"); setFormTitle("Update Wilder"); }
       }, [type]);
 
+    const [createdWilder , {loading, error } ]= useMutation(CREATE_WILDER , { refetchQueries: [GET_ALL_WILDERS],});
 
-const CREATE_WILDER = gql`
-mutation CreateWilder($name: String!, $city: String!) {
-    createWilder(name: $name, city: $city) {
-        name
-        city
-    }
-}
-`;
-  
-const UPDATE_WILDER = gql`
-    mutation UpdateWilder($id: Int!, $name: String!, $city: String!) {
-    updateWilder(id: $id, name: $name, city: $city) {
-        name
-        city
-    }
-}
-`;
+    const [updateWilder , {loading:updateloading ,error: errorWilder } ] =  useMutation(UPDATE_WILDER , { refetchQueries: [GET_ALL_WILDERS],});
 
-const AddWilderForm = () => {
-    const [createdWilder , {loading, error } ]= useMutation(CREATED_WILDER);
-    if (loading) return <div>Loading...</div>;
-    if (error ) return <div>Error</div>;
+    if (updateloading || loading ) return <div>Loading...</div>;
 
-    const handleSaveWilder = async () => {
-      try {
-        await createdWilder({
-          variables: {
-            name: name,
-            city: city,
-          },
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-};
-
-const UpdateWilderForm = () => {
-    const [updateWilder , {loading ,error } ] = useMutation(UPDATE_WILDER);
-    if (loading) return <div>Loading...</div>;
-    if (error ) return <div>Error</div>;
-
-    const handleUpdateWilder = async () => {
-        try {
-        await updateWilder({
-            variables: {
-            name: name,
-            city: city,
-            },
-        });
-        } catch (err) {
-        console.log(err);
-        }
-    };
-};
+    if (errorWilder || error) return errorWilder ? <div>Error from update</div> :<div>Error from add</div> ;
 
     return (
         <div className={styles.form}>
             <h1>{formTitle}</h1>
-            <form encType="multipart/form-data"
-                onSubmit = { (e) => {
-                e.preventDefault();
-                const formData:FormData = new FormData();
-                formData.append('name', name as string);
-                // Ajouter les données de texte à l'objet FormData
-                formData.append('city', city as string);
-                // Ajouter le fichier à l'objet FormData
-                formData.append('url', fileInputRef.current.files[0]);
-                if (type === "add"){
-                    // createdWilder(formData);
-                } else if(type === "update") {
-                    // updateWilder(formData)
-                }
-            }}
-            >
                 <label>Name:</label>
                 <input
                     type="text"
                     value= { name  }
-                    onChange={e => { setName(e.target.value)}}
-                />
+                    onChange={e => { setName(e.target.value)}}/>
                 <br/>
                 <label>City:</label>
                 <input
                     type="text"
                     value= { city  }
-                    onChange={e => { setCity(e.target.value)}}
-
-                />
+                    onChange={e => { setCity(e.target.value)}}/>
                 <br />
                 <label>Image:</label>
                 <input type="file" name="avatar" ref={fileInputRef}/>
 
-                <button onClick= { type === "add" ? AddWilderForm : UpdateWilderForm}>{buttonText}</button>
-            </form>
+                <button onClick={() => {
+                     type === "add" 
+                     ? createdWilder( { variables: { name: name , city: city}, } ) 
+                     : updateWilder( { variables: { id: id, name: name, city: city }, } )
+                    }}>
+                    {buttonText}
+                </button>
         </div>
     )
 };

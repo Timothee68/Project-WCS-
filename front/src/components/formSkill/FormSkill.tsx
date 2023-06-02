@@ -1,35 +1,30 @@
-import axios from "axios";
 import { useState } from "react";
 import styles from "./FormSkill.module.css";
-import { IFromSkill } from "../../utils/interface";
+import {CREATE_SKILL , GET_ALL_SKILLS} from "../../utils/gql"
+import { useMutation } from '@apollo/client';
 
-const AddSkill = ( {  fetchData}: IFromSkill  ) => {
-
+const AddSkill = () => 
+{
     const [name, setName] = useState("");
+
+    const [createSkill , {loading, error } ] = useMutation(CREATE_SKILL , { refetchQueries: [GET_ALL_SKILLS],});
+
+    if ( loading ) return <div>Loading...</div>;
+
+    if ( error) return  <div>Error from skillAdd</div> ;
 
     return (
         <div className={styles.form}>
-            <h1>Add skill</h1>
-            <form 
-                onSubmit = { (e) => {
-                    
-                    e.preventDefault();
-               
-                    axios.post("http://localhost:5000/api/Skill", { name})
-                    .then((response) => {
-                        alert(`${name}, Skill add to success`);
-                        fetchData();
-                    });
-                }}
-            >
+            <h1>Add skill</h1>   
                 <label>Name:</label>
                 <input
                     type="text"
                     value={name}
                     onChange={e => { setName(e.target.value)}}
                 />
-                <button>Add Skill</button>
-            </form>
+                <button  onClick={() => { createSkill({ variables:{ name: name }}) }}>
+                    Add Skill
+                </button>
         </div>
     )
 };

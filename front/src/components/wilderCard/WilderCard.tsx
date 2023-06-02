@@ -1,11 +1,12 @@
 import tete from "../../assets/tete.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Skill from "../skill/Skill";
 import styles from "./WilderCard.module.css";
 import Form from "../form/Form";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import axios from "axios";
+import {GET_ALL_WILDERS , DELETE_WILDER} from "../../utils/gql";
+import { useMutation } from '@apollo/client';
 import { ISkill , ISkillData, IWilderCard } from "../../utils/interface";
 
 const WilderCard = ({id, name ,url, city, skills, skillsData}: IWilderCard) => {
@@ -18,21 +19,18 @@ const WilderCard = ({id, name ,url, city, skills, skillsData}: IWilderCard) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
+    const [deleteWilder, {  loading,  error }] = useMutation(DELETE_WILDER, { refetchQueries: [GET_ALL_WILDERS]});
+    if ( loading ) return <div>Loading...</div>;
+    if (error) return <div>Error from delete wilder </div> ;
 
-    // useEffect(() => {
-    //     fetchData();
-    // }, [] );
-
-    console.log("/"+url)
     return (<div className={styles.card}>
                 { url ? <img src={`/${url}`} alt={`${name} Profile`}/> : <img src={tete} alt={`${name} Profile Avatar`}/>} 
-                <h3>{name}</h3>
-                <h3>Location :{city}</h3>
+                <h3>Name: <br/>{name} </h3>
+                <h3>Location: <br/> {city}</h3>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat.
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
                 <hr/>
                 <>
@@ -44,28 +42,7 @@ const WilderCard = ({id, name ,url, city, skills, skillsData}: IWilderCard) => {
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Body>
                             <div>
-                                <h1>Adding a new skill to {name}</h1>
-                                <form 
-                                    onSubmit = { (e: React.FormEvent<HTMLFormElement>) => {
-        
-                                        const skillName: string = e.currentTarget.Skill.value;
-                                        const grade: number = e.currentTarget.Grade.value;
-                                        
-                                        e.preventDefault();
-                                        // axios.post(`http://localhost:5000/api/Grade`, {  
-                                        //     grade: grade,
-                                        //     skill: skillName,
-                                        //     wilder: name,
-                                        //     })
-                                        //     .then((response) => {
-                                        //         fetchData();
-                                        //         handleClose();
-                                        //     }).catch((error) => {
-                                        //         console.error(error);
-                                        //     })
-                                         }
-                                    }>
-                                        
+                                <h1>Adding a new skill to {name}</h1>                                       
                                     <label htmlFor="Skill">Skill to add</label>
                                     <select name="Skill">
                                         { skillsData?.map( (skill: ISkillData) => <option value={skill.name}> {skill.name}</option> )}
@@ -77,8 +54,6 @@ const WilderCard = ({id, name ,url, city, skills, skillsData}: IWilderCard) => {
                                     <div id={id.toString()}>
                                         <button type="submit">Submit</button>
                                     </div>
-
-                                </form>
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
@@ -95,9 +70,7 @@ const WilderCard = ({id, name ,url, city, skills, skillsData}: IWilderCard) => {
                 <button onClick={() => handleActif()}>{actif ? "cancel" : "update"}</button>
                 {actif ? <Form nameW={name} cityW={city}  type="update" id={id} handleActif={handleActif}></Form> : null }
                 <br/>
-                <button 
-               // onClick= {() => onDelete(id) }
-                      >Delete</button>
+                <button onClick={ () => deleteWilder({ variables: { id } })}>Delete</button>
             </div>
 
           

@@ -26,8 +26,11 @@ export interface IHeader {
 
 export interface ICardGroupe {
     title: string;
-    skillsData: ISkillData[];
-    wilders: IWilder[];
+    skillsData: {getAllSkills: ISkillData[] } ;
+    wilders: {
+        getAllSkills: never[];  // pas sur de ca !!!
+        getAllWilders: IWilder[] 
+};
   }
 
 export interface IWilderCard {
@@ -36,8 +39,6 @@ export interface IWilderCard {
     city: string;
     url:string;
     skills?: ISkill[];
-    // onDelete: (id: number) => void;
-    // fetchData: () => void;
     skillsData:  ISkillData[];   
 }
 
@@ -55,5 +56,5 @@ export interface IAddWilderUpdate {
 }
 
 export interface IFromSkill{
-    fetchData: () => void;
+   
 }

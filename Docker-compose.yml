@@ -1,25 +1,27 @@
 services:
+
   front:
     build: ./front
     volumes:
       - ./front/src:/app/src
     ports:
       - 3000:3000
-    api:
-      build: ./back
-      volumes:
-       - ./back/src:/app/src
-      ports:
-       - 5000:5000
-    db:
-      image: postgres
-      restart: always
-      environement:
-        POSTGRES_PASSWORD: mdpDbPostgres
 
-    adminer:
-      image: adminer
-      restart: always
-      ports:
-       - 8080:8080
-               
+  back:
+    build: ./back
+    volumes:
+      - ./back/src:/app/src
+    ports:
+      - 5000:5000
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: mdpDbPostgres
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

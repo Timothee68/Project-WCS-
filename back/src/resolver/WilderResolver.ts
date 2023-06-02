@@ -30,14 +30,15 @@ export class WilderResolver {
     @Mutation(() => Wilder) 
     async createWilder(
         @Arg("name") name: string ,
-        @Arg("city") city: string,
-        @Arg("url") url: string ): Promise<Wilder> {
+        @Arg("city") city: string
+       ): Promise<Wilder> {
             const newWilder = new Wilder()
             newWilder.name = name;
             newWilder.city = city;
-            newWilder.url = url;
+            newWilder.url = "https://vision.gel.ulaval.ca/~jflalonde/cours/4105/h19/tps/results/tp3/111126876/images/05-Thomas.jpg";
 
             const wilderFromDB = await dataSource.manager.save(Wilder, newWilder);
+            
             return wilderFromDB
         }
 
@@ -51,16 +52,20 @@ export class WilderResolver {
     
         if (wilderToUpdate == null ) throw new Error("Wilder not found");
         wilderToUpdate.name = name;
-        wilderToUpdate.city = city;    
+        wilderToUpdate.city = city;
+        wilderToUpdate.url = "https://vision.gel.ulaval.ca/~jflalonde/cours/4105/h19/tps/results/tp3/111126876/images/05-Thomas.jpg";
+        
         const updatedWilder = await dataSource.manager.save(Wilder, wilderToUpdate);
-        console.log(updatedWilder);      
+
         return updatedWilder;
     }
 
-    @Mutation( () => Boolean)
-    async deleteWilder(@Arg("id") id: number ): Promise<Boolean> {
-        const wilderToDelete = await dataSource.manager.findOne(Wilder,  {where: {id} })
-        await dataSource.manager.remove(Wilder , wilderToDelete)
-        return true;
+    @Mutation(() => Boolean)
+    async deleteWilder(@Arg("id") id: number): Promise<Boolean> {
+        const wilderToDelete = await dataSource.manager.findOne(Wilder, { where: { id } });
+    
+        await dataSource.manager.remove(Wilder, wilderToDelete);
+    
+      return true;
     }
 }

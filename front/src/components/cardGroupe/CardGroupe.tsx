@@ -5,18 +5,18 @@ import axios from "axios";
 import { ICardGroupe } from "../../utils/interface";
 
 
-const CardGroupe = ({ title, skillsData, fetchData, wilders }: ICardGroupe) => {
+const CardGroupe = ({ title, skillsData, wilders }: ICardGroupe) => {
    
-    const handleDelete = (id: number) => {
-        axios.delete(`http://localhost:5000/api/Wilder/${id}`)
-        .then(() => {
-            fetchData();
-        });
-    };
+    // const handleDelete = (id: number) => {
+    //     axios.delete(`http://localhost:5000/api/Wilder/${id}`)
+    //     .then(() => {
+    //         fetchData();
+    //     });
+    // };
 
-    useEffect(() => {
-        fetchData();
-    }, [] );
+    // useEffect(() => {
+    //     fetchData();
+    // }, [] );
 
     return (<div className={styles.CardGroupe}>
                 <h2> {title} </h2>
@@ -29,8 +29,8 @@ const CardGroupe = ({ title, skillsData, fetchData, wilders }: ICardGroupe) => {
                                 city={wilder.city}
                                 url={wilder.url}
                                 skills={wilder.skill} 
-                                onDelete={() => handleDelete(wilder.id)} 
-                                fetchData={fetchData}
+                                // onDelete={() => handleDelete(wilder.id)} 
+                                // fetchData={fetchData}
                                 skillsData={skillsData}                      
                             />
                         </div>

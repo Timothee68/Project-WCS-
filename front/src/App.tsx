@@ -5,8 +5,8 @@ import Form from "./components/form/Form";
 import FormSkill from "./components/formSkill/FormSkill";
 import { useState } from "react";
 import { useQuery, gql } from '@apollo/client';
-import {ISkillData,IWilder} from "./utils/interface";
-import Skill from './components/skill/Skill';
+// import {ISkillData,IWilder} from "./utils/interface";
+// import Skill from './components/skill/Skill';
 
 const GET_ALL_WILDERS = gql`
   query getAllWilders {
@@ -27,7 +27,7 @@ const GET_ALL_WILDERS = gql`
 `
 const GET_ALL_SKILLS = gql`
   query getAllSkills {
-    skills {
+    getAllSkills {
       id
       name
     }
@@ -55,9 +55,9 @@ function App() {
         <Header title="Wilders Book"></Header>
         <div>
           <FormSkill fetchData={function (): void { } }></FormSkill>
-          <Form type="add" handleActif={handleActif}></Form>
+          <Form  type="add" handleActif={handleActif}></Form>
         </div>
-          <CardGroupe wilders={wilders} skillsData={skillsData} title="Wilders"></CardGroupe>
+          <CardGroupe wilders={wilders} skillsData={skillsData} title={''}></CardGroupe>
     </div>
  );
 }

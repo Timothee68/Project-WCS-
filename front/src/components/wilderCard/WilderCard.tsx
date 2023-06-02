@@ -8,7 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import { ISkill , ISkillData, IWilderCard } from "../../utils/interface";
 
-const WilderCard = ({id, name ,url, city, skills, onDelete , fetchData, skillsData}: IWilderCard) => {
+const WilderCard = ({id, name ,url, city, skills, skillsData}: IWilderCard) => {
 
     const [actif, setActif] = useState(false) ;
     const handleActif = () => {
@@ -19,9 +19,9 @@ const WilderCard = ({id, name ,url, city, skills, onDelete , fetchData, skillsDa
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    useEffect(() => {
-        fetchData();
-    }, [] );
+    // useEffect(() => {
+    //     fetchData();
+    // }, [] );
 
     console.log("/"+url)
     return (<div className={styles.card}>
@@ -52,17 +52,17 @@ const WilderCard = ({id, name ,url, city, skills, onDelete , fetchData, skillsDa
                                         const grade: number = e.currentTarget.Grade.value;
                                         
                                         e.preventDefault();
-                                        axios.post(`http://localhost:5000/api/Grade`, {  
-                                            grade: grade,
-                                            skill: skillName,
-                                            wilder: name,
-                                            })
-                                            .then((response) => {
-                                                fetchData();
-                                                handleClose();
-                                            }).catch((error) => {
-                                                console.error(error);
-                                            })
+                                        // axios.post(`http://localhost:5000/api/Grade`, {  
+                                        //     grade: grade,
+                                        //     skill: skillName,
+                                        //     wilder: name,
+                                        //     })
+                                        //     .then((response) => {
+                                        //         fetchData();
+                                        //         handleClose();
+                                        //     }).catch((error) => {
+                                        //         console.error(error);
+                                        //     })
                                          }
                                     }>
                                         
@@ -93,9 +93,11 @@ const WilderCard = ({id, name ,url, city, skills, onDelete , fetchData, skillsDa
                 </ul>
                 <hr/>
                 <button onClick={() => handleActif()}>{actif ? "cancel" : "update"}</button>
-                {actif ? <Form nameW={name} cityW={city} fetchData={ fetchData } type="update" id={id} handleActif={handleActif}></Form> : null }
+                {actif ? <Form nameW={name} cityW={city}  type="update" id={id} handleActif={handleActif}></Form> : null }
                 <br/>
-                <button onClick={() => onDelete(id) } >Delete</button>
+                <button 
+               // onClick= {() => onDelete(id) }
+                      >Delete</button>
             </div>
 
           
